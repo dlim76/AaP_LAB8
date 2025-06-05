@@ -187,7 +187,6 @@ int main() {
         switch (choice)
         {
             case 1:
-                // Что такое &
                 input_polynomial(&poly);
                 printf("Многочлен создан: ");
                 print_list(&poly);
@@ -204,7 +203,6 @@ int main() {
                 getchar();
                 if (deg < 0)
                 {
-                    // Что такое fputs
                     printf("Степень не может быть отрицательной!\n");
                     break;
                 }
