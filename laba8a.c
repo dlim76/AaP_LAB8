@@ -47,9 +47,29 @@ void insert_end(linked_list *list, int coeff, int deg){
     list->size++;
 }
 
+void insert_start(linked_list *list, int coeff, int deg){
+    if (coeff == 0){
+        printf("Коэффициент равен нулю");
+        return;
+    }
+
+    Node *newNode = createNode(deg, coeff);
+    if (list->head == NULL){
+        list->head = list->tail = newNode;
+    }
+    else {
+        newNode->next = list->head;
+        list->head = newNode;
+    }
+    list->size++;
+}
 
 void insert_after(linked_list *list, int coeff, int deg) {
-   if (coeff == 0){
+   if (coeff == 0)
+       return;
+
+   if (list->head != NULL && deg > list->head->deg) {
+       insert_start(list, coeff, deg);
        return;
    }
 
@@ -65,12 +85,12 @@ void insert_after(linked_list *list, int coeff, int deg) {
        current->coeff += coeff;
 
        if (current->coeff == 0){
-            if (prev == NULL) {
-                list->head = current->next;
-            }
-            else {
-                prev->next = current->next;
-            }
+           if (prev == NULL) {
+               list->head = current->next;
+           }
+           else {
+               prev->next = current->next;
+           }
            if (current == list->tail) {
                list->tail = prev;
            }
@@ -187,6 +207,7 @@ int main() {
         switch (choice)
         {
             case 1:
+                // Что такое & ???
                 input_polynomial(&poly);
                 printf("Многочлен создан: ");
                 print_list(&poly);
@@ -203,6 +224,7 @@ int main() {
                 getchar();
                 if (deg < 0)
                 {
+                    // Что такое fputs
                     printf("Степень не может быть отрицательной!\n");
                     break;
                 }
